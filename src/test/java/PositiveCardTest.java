@@ -15,7 +15,6 @@ public class PositiveCardTest {
 
     @BeforeAll
     static void setUpAll() {
-        //System.setProperty("webdriver.chrome.driver", "C:\\Idea Projects\\web\\driver\\chromedriver.exe");
         WebDriverManager.chromedriver().setup();
     }
 
