@@ -19,7 +19,11 @@ public class NegativeCardTest {
 
     @BeforeEach
     void setUp() {
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--headless");
+        driver = new ChromeDriver(options);
     }
 
     @AfterEach
@@ -41,7 +45,7 @@ public class NegativeCardTest {
     @Test
     void shouldAlertIfNoName() {
         driver.get("http://localhost:9999");
-        driver.findElement(By.cssSelector("[data-test-id=\"name\"] .input__control")).sendKeys("");;
+        driver.findElement(By.cssSelector("[data-test-id=\"name\"] .input__control")).sendKeys("");
         driver.findElement(By.className("button__text")).click();
         String expected = "Поле обязательно для заполнения";
         String actual = driver.findElement(By.cssSelector("[data-test-id=\"name\"] .input__sub")).getText();
