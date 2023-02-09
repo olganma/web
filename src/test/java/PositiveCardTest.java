@@ -19,11 +19,7 @@ public class PositiveCardTest {
 
     @BeforeEach
     void setUp() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--headless");
-        driver = new ChromeDriver(options);
+        driver = new ChromeDriver();
     }
 
     @AfterEach
@@ -33,16 +29,15 @@ public class PositiveCardTest {
     }
 
     @Test
-    void shouldTestPositive() throws InterruptedException {
-        Thread.sleep(5000);
+    void shouldTestHappyPath() {
         driver.get("http://localhost:9999");
-        driver.findElement(By.cssSelector("[data-test-id=\"name\"] input.input__control")).sendKeys("Маевская Ольга");
-        driver.findElement(By.cssSelector("[data-test-id=\"phone\"] input.input__control")).sendKeys("+79261111111");
+        driver.findElement(By.cssSelector("[data-test-id=\"name\"] .input__control")).sendKeys("Маевская Ольга");
+        driver.findElement(By.cssSelector("[data-test-id=\"phone\"] .input__control")).sendKeys("+79261111111");
         driver.findElement(By.cssSelector("[data-test-id=\"agreement\"]")).click();
         driver.findElement(By.className("button__text")).click();
-        String expected = "  Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.";
+        String expected = "Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.";
         String actual = driver.findElement(By.cssSelector("[data-test-id=\"order-success\"]")).getText();
-        assertEquals(expected,actual);
+        assertEquals(expected, actual.trim());
     }
 
 }
